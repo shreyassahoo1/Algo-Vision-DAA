@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { knapsackDP, floydWarshall } from '../algorithms/dp';
 import CodeEditorPanel from '../components/CodeEditorPanel';
+import AlgorithmInfoCard from '../components/AlgorithmInfoCard';
 
 const algorithms = {
   'Knapsack 0/1': { best: 'O(n * W)', avg: 'O(n * W)', worst: 'O(n * W)', space: 'O(n * W)' },
@@ -252,7 +253,7 @@ const DPVisualizer = () => {
       </div>
 
       {/* Main Visualization Area */}
-      <div className="flex-1 p-6 flex flex-col overflow-auto relative">
+      <div className="flex-1 p-6 flex flex-col space-y-6 overflow-y-auto relative">
         
         {/* Manual Data Builder Overlay */}
         {inputMode === 'Manual' && !isPlaying && currentStep === 0 && (
@@ -339,7 +340,7 @@ const DPVisualizer = () => {
           </div>
         )}
 
-        <div className="flex flex-col lg:flex-row gap-6 h-full">
+        <div className="flex flex-col lg:flex-row gap-6 shrink-0 min-h-[450px]">
           {/* Left panel: Items (Only for Knapsack) */}
           {selectedAlgo === 'Knapsack 0/1' && (
             <div className="w-full lg:w-64 bg-white p-4 rounded-xl shadow-sm border border-slate-200 shrink-0">
@@ -416,6 +417,7 @@ const DPVisualizer = () => {
             </div>
           </div>
         </div>
+        <AlgorithmInfoCard selectedAlgo={selectedAlgo} />
       </div>
       <CodeEditorPanel selectedAlgo={selectedAlgo} />
     </div>

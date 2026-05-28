@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, FastForward, Settings2 } from 'lucide-react';
 import { bubbleSort, selectionSort, insertionSort, mergeSort, quickSort } from '../algorithms/sorting';
 import CodeEditorPanel from '../components/CodeEditorPanel';
+import AlgorithmInfoCard from '../components/AlgorithmInfoCard';
 
 const algorithms = {
   'Bubble Sort': { fn: bubbleSort, best: 'O(n)', avg: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
@@ -241,12 +242,11 @@ const SortingVisualizer = () => {
       </div>
 
       {/* Main Visualization Area */}
-      <div className="flex-1 p-8 flex flex-col justify-end relative">
-        <div className="absolute top-4 left-8 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200">
-          <p className="text-sm text-slate-600 font-medium">Comparisons: <span className="text-blue-600 text-lg">{comparisons}</span></p>
-        </div>
-        
-        <div className="flex items-end justify-center space-x-1 h-full w-full bg-white rounded-2xl shadow-sm border border-slate-200 p-8 pb-0">
+      <div className="flex-1 p-8 flex flex-col space-y-6 relative overflow-y-auto">
+        <div className="flex-1 flex items-end justify-center space-x-1 min-h-[350px] w-full bg-white rounded-2xl shadow-sm border border-slate-200 p-8 pb-0 relative">
+          <div className="absolute top-4 left-8 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 z-20">
+            <p className="text-sm text-slate-600 font-medium">Comparisons: <span className="text-blue-600 text-lg">{comparisons}</span></p>
+          </div>
           {array.map((val, idx) => {
             const isActive = activeIndices.includes(idx);
             return (
@@ -260,6 +260,7 @@ const SortingVisualizer = () => {
             );
           })}
         </div>
+        <AlgorithmInfoCard selectedAlgo={selectedAlgo} />
       </div>
       <CodeEditorPanel selectedAlgo={selectedAlgo} />
     </div>

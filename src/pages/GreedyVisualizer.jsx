@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { fractionalKnapsack, primsMST, kruskalsMST } from '../algorithms/greedy';
 import CodeEditorPanel from '../components/CodeEditorPanel';
+import AlgorithmInfoCard from '../components/AlgorithmInfoCard';
 
 const algorithms = {
   'Fractional Knapsack': { best: 'O(n log n)', avg: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)' },
@@ -258,7 +259,7 @@ const GreedyVisualizer = () => {
       </div>
 
       {/* Main Visualization Area */}
-      <div className="flex-1 p-6 flex flex-col overflow-auto relative">
+      <div className="flex-1 p-6 flex flex-col space-y-6 overflow-y-auto relative">
         
         {/* Manual Data Builder Overlay */}
         {inputMode === 'Manual' && !isPlaying && currentStep === 0 && (
@@ -349,7 +350,7 @@ const GreedyVisualizer = () => {
           <p className="font-medium text-lg">{currentSnapshot.description || 'Click play to start the visualization.'}</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-6 h-full">
+        <div className="flex flex-col lg:flex-row gap-6 shrink-0 min-h-[450px]">
           
           {selectedAlgo === 'Fractional Knapsack' ? (
             <>
@@ -539,6 +540,7 @@ const GreedyVisualizer = () => {
           )}
 
         </div>
+        <AlgorithmInfoCard selectedAlgo={selectedAlgo} />
       </div>
       <CodeEditorPanel selectedAlgo={selectedAlgo} />
     </div>

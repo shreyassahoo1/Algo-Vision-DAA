@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, RotateCcw, Plus, Trash2, GitCommit } from 'lucide-react';
 import { bfs, dfs, dijkstra, topologicalSort, bellmanFord, aStar } from '../algorithms/graph';
 import CodeEditorPanel from '../components/CodeEditorPanel';
+import AlgorithmInfoCard from '../components/AlgorithmInfoCard';
 
 const algorithms = {
   'BFS': { fn: bfs, best: 'O(V + E)', avg: 'O(V + E)', worst: 'O(V + E)', space: 'O(V)' },
@@ -253,16 +254,15 @@ const GraphVisualizer = () => {
       {/* Main Content Pane */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Side: Graph Canvas */}
-        <div className="flex-1 p-8 relative flex justify-center items-center h-full">
-          {nodes.length === 0 && (
-            <div className="absolute text-slate-400 pointer-events-none text-center">
-              <p className="text-xl font-medium mb-2">Canvas is empty</p>
-              <p className="text-sm">Click anywhere to add nodes. Select the "Add Edge" tool to connect them.</p>
-              <p className="text-xs text-slate-400 mt-2">Click edges to customize their weight.</p>
-            </div>
-          )}
-          
-          <div className="w-full h-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden cursor-crosshair">
+        <div className="flex-1 p-8 flex flex-col space-y-6 overflow-y-auto h-full relative">
+          <div className="flex-1 min-h-[400px] w-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden cursor-crosshair relative">
+            {nodes.length === 0 && (
+              <div className="absolute inset-0 flex flex-col justify-center items-center text-slate-400 pointer-events-none text-center p-4">
+                <p className="text-xl font-medium mb-2">Canvas is empty</p>
+                <p className="text-sm">Click anywhere to add nodes. Select the "Add Edge" tool to connect them.</p>
+                <p className="text-xs text-slate-400 mt-2">Click edges to customize their weight.</p>
+              </div>
+            )}
             <svg 
               className="w-full h-full" 
               onClick={handleSvgClick}
@@ -423,14 +423,15 @@ const GraphVisualizer = () => {
                 );
               })}
             </svg>
+            
+            {/* Floating Info Overlay (Simplified) */}
+            {currentSnapshot.description && (
+              <div className="absolute top-4 left-4 bg-white/95 p-4 rounded-xl shadow-lg border border-slate-200 max-w-sm backdrop-blur-sm z-20 pointer-events-none">
+                <p className="text-slate-700 font-medium">{currentSnapshot.description}</p>
+              </div>
+            )}
           </div>
-          
-          {/* Floating Info Overlay (Simplified) */}
-          {currentSnapshot.description && (
-            <div className="absolute top-12 left-12 bg-white/95 p-4 rounded-xl shadow-lg border border-slate-200 max-w-sm backdrop-blur-sm z-20 pointer-events-none">
-              <p className="text-slate-700 font-medium">{currentSnapshot.description}</p>
-            </div>
-          )}
+          <AlgorithmInfoCard selectedAlgo={selectedAlgo} />
         </div>
 
         {/* Right Side: Live Output Panel */}

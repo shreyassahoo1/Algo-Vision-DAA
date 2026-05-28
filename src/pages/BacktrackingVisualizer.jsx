@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { nQueens } from '../algorithms/backtracking';
 import CodeEditorPanel from '../components/CodeEditorPanel';
+import AlgorithmInfoCard from '../components/AlgorithmInfoCard';
 
 const BacktrackingVisualizer = () => {
   const [boardSize, setBoardSize] = useState(4);
@@ -138,7 +139,7 @@ const BacktrackingVisualizer = () => {
       </div>
 
       {/* Main Visualization Area */}
-      <div className="flex-1 p-6 flex flex-col overflow-auto relative items-center justify-start">
+      <div className="flex-1 p-6 flex flex-col space-y-6 overflow-y-auto relative items-center justify-start">
         <div className="w-full max-w-3xl mb-6 bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-slate-700 min-h-[4rem] flex items-center justify-center text-center">
           <p className="font-medium text-lg">{description || 'Click play to start the visualization.'}</p>
         </div>
@@ -186,6 +187,10 @@ const BacktrackingVisualizer = () => {
               })
             )}
           </div>
+        </div>
+        
+        <div className="w-full max-w-3xl">
+          <AlgorithmInfoCard selectedAlgo="N-Queens" />
         </div>
       </div>
       <CodeEditorPanel selectedAlgo="N-Queens" />
