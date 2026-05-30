@@ -1,3 +1,5 @@
+![Status](https://img.shields.io/badge/Status-Learning%20Resource-success)
+
 # Algo-Fusion-DAA
 
 A modern interactive platform for learning, visualizing, and understanding core **Design and Analysis of Algorithms (DAA)** concepts through real-time implementations, graphical demonstrations, and performance analysis.
